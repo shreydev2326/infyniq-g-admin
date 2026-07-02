@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-screen w-screen overflow-hidden bg-slate-50 font-sans leading-normal text-slate-600 antialiased"
+    class="flex h-screen w-screen overflow-hidden bg-[#F0F2F5] font-sans leading-normal text-slate-600 antialiased"
   >
     <AppSidebar
       v-model:activeTab="activeTab"
@@ -19,15 +19,16 @@
         @open-sidebar="sidebarOpen = true"
         @change-tab="activeTab = $event"
       />
-
-      <RouterView />
+        <div class="flex-1 overflow-y-auto">
+          <RouterView />
+        </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { RouterView } from 'vue-router'
+import { RouterView } from 'vue-router' 
 
 import AppSidebar from '@/components/layout/AppSidebar.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
@@ -48,12 +49,12 @@ const newLeadsCount = computed(() =>
 const unreadInquiriesCount = computed(() =>
   inquiries.value.filter(i => i.status === 'unread').length
 )
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 function handleLogout() {
-  // your logout logic
+  localStorage.removeItem('auth_token')
+  router.push({ name: 'Login' })
 }
-
-onMounted(() => {
-  // your existing mounted logic
-})
 </script>
