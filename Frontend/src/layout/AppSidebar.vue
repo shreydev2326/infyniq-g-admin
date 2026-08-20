@@ -1,7 +1,16 @@
 <template>
+  <!-- Backdrop: only relevant below lg, closes the drawer on tap -->
+  <transition name="fade">
+    <div
+      v-if="isOpen"
+      @click="$emit('update:isOpen', false)"
+      class="fixed inset-0 z-40 bg-black/40 lg:hidden"
+    ></div>
+  </transition>
+
   <aside
     :class="[
-      'fixed top-0 bottom-0 left-0 z-50 flex w-64 flex-col px-4 py-5 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0',
+      'fixed top-0 bottom-0 left-0 z-50 flex w-64 max-w-[85vw] flex-col px-4 py-5 transition-transform duration-300 ease-in-out lg:static lg:z-auto lg:w-64 lg:max-w-none lg:translate-x-0',
       'bg-[#F0F2F5] border-r border-[#E2E6EC]',
       isOpen ? 'translate-x-0' : '-translate-x-full'
     ]"
@@ -28,7 +37,7 @@
     <p class="mb-2 px-3 text-[10px] font-semibold tracking-widest text-[#A0AFBF] uppercase">
       Navigation
     </p>
-    <nav class="flex-1 space-y-3">
+    <nav class="flex-1 space-y-3 overflow-y-auto">
       <RouterLink
         v-for="item in visibleMenuItems"
         :key="item.id"
@@ -110,8 +119,7 @@
       </div>
     </div>
   </aside>
-</template>
-
+</template>   
 <script setup>
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
@@ -134,11 +142,8 @@ const emit = defineEmits(['update:activeTab', 'update:isOpen', 'logout'])
 const menuItems = [
   { id: 'overview',  label: 'Command Center',      icon: 'pi-objects-column', routeName: 'Home',      badge: null, path: '/'},
   { id: 'content',   label: 'Website Content',     icon: 'pi-file-edit',      routeName: 'Analytics', badge: null, path: 'content' },
-  { id: 'leads',     label: 'Qualified Leads',     icon: 'pi-user',           routeName: 'Orders',    badge: null, path: 'leads'  },
   { id: 'products',  label: 'Products & Assets',   icon: 'pi-box',      routeName: 'Details',  badge: null, path: 'details' },
-  { id: 'inquiries', label: 'Mail Inquiries',      icon: 'pi-envelope',       routeName: 'Customers', badge: '3',  path: 'mails'  },
-  { id: 'staff',     label: 'Employee & Staff',    icon: 'pi-users',          routeName: 'Products',  badge: null, path: 'staff' },
-  { id: 'logs',      label: 'Security & Activity', icon: 'pi-history',        routeName: 'Settings',  badge: null, path: 'security' }
+  { id: 'inquiries', label: 'Mail Inquiries',      icon: 'pi-envelope',       routeName: 'Customers', badge: null,  path: 'mails'  },
 ]
 
 const visibleMenuItems = computed(() => menuItems)
@@ -148,3 +153,14 @@ function selectTab(id) {
   emit('update:isOpen', false)
 }
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

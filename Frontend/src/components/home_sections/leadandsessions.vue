@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-4 xl:flex-row" style="font-family: 'Inter', sans-serif">
-    <div class="flex-1 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
+    <!-- <div class="flex-1 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
       <div class="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h2 class="text-base font-medium text-slate-700">
@@ -54,7 +54,7 @@
           <i class="pi pi-arrow-up-right text-xs text-slate-300 transition-transform duration-200 group-hover:translate-x-0.5"></i>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="w-full rounded-xl border border-slate-100 bg-white p-5 shadow-sm xl:w-80 xl:shrink-0">
       <div class="mb-4">
         <h2 class="text-base font-medium text-slate-700">

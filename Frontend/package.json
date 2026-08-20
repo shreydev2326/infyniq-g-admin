@@ -12,6 +12,7 @@
   "dependencies": {
     "@primeuix/themes": "^2.0.3",
     "@tailwindcss/postcss": "^4.3.0",
+    "axios": "^1.18.1",
     "chart.js": "^4.5.1",
     "pinia": "^3.0.4",
     "postcss": "^8.5.15",
@@ -19,6 +20,7 @@
     "primevue": "^4.5.5",
     "tailwindcss": "^4.3.0",
     "vue": "beta",
+    "vue-axios": "^3.5.2",
     "vue-router": "^5.0.4"
   },
   "devDependencies": {

@@ -1,8 +1,8 @@
 <template>
-  <!-- Mobile Header -->
-  <header class="bg-transparent px-4 py-3.5 lg:hidden">
-    <div class="flex items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5 min-w-0">
+  <!-- Mobile / Tablet Header -->
+  <header class="bg-transparent px-3 sm:px-4 py-3.5 lg:hidden">
+    <div class="flex items-center justify-between gap-2 sm:gap-3">
+      <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
         <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#4A6FA5]">
           <i :class="['pi', pageIcon]" class="text-white text-xs"></i>
         </div>
@@ -10,11 +10,11 @@
           {{ pageTitle }}
         </h1>
       </div>
-      <div class="flex items-center gap-2 shrink-0">
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <button
-          class="flex items-center gap-1.5 rounded-lg bg-[#4A6FA5] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#3D5E8F] transition-colors"
+          class="flex items-center gap-1.5 rounded-lg bg-[#4A6FA5] px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#3D5E8F] transition-colors"
         >
-          <span>CMS Preview</span>
+          <span class="hidden xs:inline sm:inline">CMS Preview</span>
           <i class="pi pi-external-link text-[10px]"></i>
         </button>
         <button
@@ -28,26 +28,26 @@
   </header>
 
   <!-- Desktop Header -->
-  <header class="hidden lg:flex items-center justify-between bg-transparent px-6 py-4">
+  <header class="hidden lg:flex items-center justify-between gap-3 bg-transparent px-4 xl:px-6 py-4 flex-wrap">
     <!-- Left: Page Identity -->
-    <div class="flex items-center gap-3.5">
-      <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white shadow-sm border border-[#E2E6EC]">
+    <div class="flex items-center gap-3 xl:gap-3.5 min-w-0">
+      <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm border border-[#E2E6EC]">
         <i :class="['pi', pageIcon]" class="text-[#4A6FA5] text-base"></i>
       </div>
-      <div>
-        <h1 class="text-[15px] font-semibold text-[#1A2535] leading-tight">
+      <div class="min-w-0">
+        <h1 class="text-[15px] font-semibold text-[#1A2535] leading-tight truncate">
           {{ pageTitle }}
         </h1>
-        <p class="text-[11px] text-[#7A8BA0] mt-0.5 leading-tight">
+        <p class="text-[11px] text-[#7A8BA0] mt-0.5 leading-tight truncate hidden xl:block">
           {{ pageSubtitle }}
         </p>
       </div>
     </div>
 
     <!-- Right: Actions -->
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 shrink-0 flex-wrap justify-end">
       <!-- Clock -->
-      <div class="flex items-center gap-2 rounded-xl bg-white border border-[#E2E6EC] px-3 py-2 shadow-sm">
+      <div class="hidden xl:flex items-center gap-2 rounded-xl bg-white border border-[#E2E6EC] px-3 py-2 shadow-sm">
         <i class="pi pi-clock text-[#90A0B5] text-xs"></i>
         <span class="font-mono text-xs font-medium text-[#3D5066] tabular-nums">
           {{ currentTime }}
@@ -57,18 +57,20 @@
       <!-- Refresh -->
       <button
         @click="handleRefresh"
-        class="flex items-center gap-2 rounded-xl bg-white border border-[#E2E6EC] px-3.5 py-2 text-xs font-medium text-[#3D5066] hover:bg-[#E6EAF0] hover:border-[#D8E0EA] hover:text-[#2D3D52] transition-all duration-150 active:scale-95 shadow-sm"
+        title="Refresh Data"
+        class="flex items-center gap-2 rounded-xl bg-white border border-[#E2E6EC] px-2.5 xl:px-3.5 py-2 text-xs font-medium text-[#3D5066] hover:bg-[#E6EAF0] hover:border-[#D8E0EA] hover:text-[#2D3D52] transition-all duration-150 active:scale-95 shadow-sm"
       >
         <i class="pi pi-sync text-xs" :class="{ 'animate-spin': isRefreshing }"></i>
-        <span>Refresh Data</span>
+        <span class="hidden xl:inline">Refresh Data</span>
       </button>
 
       <!-- CMS Preview -->
       <button
       @click="goTocms"
-        class="flex items-center gap-2 rounded-xl bg-[#4A6FA5] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#3D5E8F] transition-all duration-150 active:scale-95 shadow-sm shadow-[#4A6FA5]/20"
+        title="CMS Preview"
+        class="flex items-center gap-2 rounded-xl bg-[#4A6FA5] px-2.5 xl:px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#3D5E8F] transition-all duration-150 active:scale-95 shadow-sm shadow-[#4A6FA5]/20"
       >
-        <span>CMS Preview</span>
+        <span class="hidden xl:inline">CMS Preview</span>
         <i class="pi pi-external-link text-[10px]"></i>
       </button>
     </div>

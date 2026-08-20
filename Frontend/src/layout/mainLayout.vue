@@ -30,8 +30,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { RouterView } from 'vue-router' 
 
-import AppSidebar from '@/components/layout/AppSidebar.vue'
-import AppHeader from '@/components/layout/AppHeader.vue'
+import AppSidebar from '@/layout/AppSidebar.vue'
+import AppHeader from '@/layout/AppHeader.vue'
 
 const sessionUser = ref(null)
 const activeTab = ref('overview')

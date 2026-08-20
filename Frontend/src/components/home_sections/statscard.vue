@@ -38,6 +38,7 @@
 </template>
 <script setup>
 import Chart from 'primevue/chart'
+import { ref, onMounted } from 'vue';
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -51,14 +52,24 @@ const chartOptions = {
     line: { tension: 0.4, borderWidth: 2 },
   },
 }
-const statCards = [
+async function loadAnalytics() {
+  const res = await fetch("http://127.0.0.1:8000/analytics")
+  const data = await res.json()
+
+  statCards.value[0].value = data.visitors
+}
+
+onMounted(() => {
+  loadAnalytics()
+})
+const statCards = ref([
   {
     id: 'visitors',
     label: 'Unique Visitors (7D)',
     icon: 'pi-users',
     iconBg: 'bg-slate-100',
     iconColor: 'text-slate-500',
-    value: '2,900',
+    value: '0',
     badge: '↑ +17.8%',
     badgeColor: 'text-emerald-700',
     badgeBg: 'bg-emerald-50',
@@ -116,5 +127,5 @@ const statCards = [
       datasets: [{ data: [60,80,45,70,35,90,55,75,40,65], borderColor: '#f59e0b', fill: false }],
     },
   },
-]
+])
 </script>

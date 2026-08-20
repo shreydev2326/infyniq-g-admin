@@ -1,7 +1,7 @@
 <template>
-  <div class="flex gap-4 items-stretch min-h-[425px]">
-    <div class="hidden md:flex flex-1 flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div class="flex items-center justify-between">
+  <div class="flex flex-col md:flex-row gap-4 items-stretch min-h-106.25">
+    <div class="flex flex-1 flex-col rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm min-w-0">
+      <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 class="text-base font-medium text-slate-700" style="font-family: 'Inter', sans-serif">
             Project Analysis
@@ -19,11 +19,11 @@
           </button>
         </div>
       </div>
-      <div class="mt-5 flex-1 min-h-0" style="height: 320px">
+      <div class="mt-5 flex-1 min-h-0 w-full" style="height: 260px; min-height: 260px;">
         <Chart type="line" :data="chartData" :options="chartOptions" class="h-full w-full" />
       </div>
     </div>
-    <div class="w-96 shrink-0 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col">
+    <div class="w-full md:w-96 md:shrink-0 rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm flex flex-col min-w-0">
       <div class="mb-5">
         <h2 class="text-base font-medium text-slate-700" style="font-family: 'Inter', sans-serif">
           Acquisition Sources
@@ -32,7 +32,7 @@
           Distribution of visitors across major traffic channels.
         </p>
       </div>
-      <div class="flex-1" style="height: 220px">
+      <div class="flex-1 w-full" style="height: 220px; min-height: 220px;">
         <Chart type="bar" :data="acquisitionChartData" :options="acquisitionChartOptions" class="h-full w-full" />
       </div>
       <div class="mt-5 border-t border-slate-100 pt-5 space-y-3">
@@ -53,37 +53,32 @@
 </template>
 <script setup>
 import Chart from 'primevue/chart'
-const chartData = {
-  labels: ['Jun 05', 'Jun 06', 'Jun 07', 'Jun 08', 'Jun 09', 'Jun 10', 'Jun 11'],
-  datasets: [
-    {
-      label: 'Page Views',
-      data: [340, 420, 390, 520, 680, 890, 430],
-      borderColor: '#7c6ef5',
-      backgroundColor: 'rgba(99, 102, 241, 0.07)',
-      fill: true,
-      tension: 0.45,
-      borderWidth: 2.5,
-      pointRadius: 0,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#7c6ef5',
-    },
-    {
-      label: 'Unique Visitors',
-      data: [210, 280, 240, 310, 410, 550, 290],
-      borderColor: '#22c55e',
-      backgroundColor: 'rgba(34, 197, 94, 0.07)',
-      fill: true,
-      tension: 0.45,
-      borderWidth: 2,
-      borderDash: [6, 4],
-      pointRadius: 0,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: '#22c55e',
-    },
-  ],
-}
+import { ref, onMounted } from 'vue';
+const chartData = ref(null)
+onMounted(async () => {
+
+   const res = await fetch("http://127.0.0.1:8000/dashboard/analytics")
+
+   const data = await res.json()
+
+   chartData.value = {
+      labels:data.labels,
+      datasets:[
+         {
+            label:"Page Views",
+            data:data.page_views
+         },
+         {
+            label:"Unique Visitors",
+            data:data.unique_visitors
+         }
+      ]
+   }
+
+   acquisitionSources.value = data.sources
+})
 const chartOptions = {
+  responsive: true,
   maintainAspectRatio: false,
   interaction: { mode: 'index', intersect: false },
   plugins: {
@@ -151,6 +146,7 @@ const acquisitionChartData = {
 }
 const acquisitionChartOptions = {
   indexAxis: 'y',
+  responsive: true,
   maintainAspectRatio: false,
   plugins: {
     legend: { display: false },

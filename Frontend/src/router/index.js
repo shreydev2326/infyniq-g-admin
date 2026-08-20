@@ -2,10 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import MainLayout from '@/layout/mainLayout.vue'
 import Home from '@/views/home.vue'
 import analytics from '@/views/analytics.vue'
-import orders from '@/views/orders.vue'
 import Customers from '@/views/customers.vue'
-import Products from '@/views/staff.vue'
-import Settings from '@/views/settings.vue'
 import Login from '@/views/Login.vue'
 import Details from '@/views/details.vue'
 const routes = [
@@ -29,11 +26,6 @@ const routes = [
         component: analytics
       },
       {
-        path: 'leads',
-        name: 'Orders',
-        component: orders
-      },
-      {
         path: 'details',
         name: 'Details',
         component: Details
@@ -42,16 +34,7 @@ const routes = [
         path: 'mails',
         name: 'Customers',
         component: Customers
-      },
-      {
-        path: 'staff',
-        name: 'Products',
-        component: Products
-      },
-      {
-        path: 'security',
-        name: 'Settings',
-        component: Settings}
+      }
       ]}]
 const router = createRouter({
   history: createWebHashHistory(),

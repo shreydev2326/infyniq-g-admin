@@ -4,7 +4,7 @@ import Aura from '@primeuix/themes/aura'
 import ToastService from 'primevue/toastservice'
 
 import App from './App.vue'
-import router from './router' // imports src/router/index.js
+import router from './router/index.js' // imports src/router/index.js
 
 import './assets/main.css'
 
